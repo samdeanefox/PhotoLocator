@@ -51,7 +51,7 @@ if 'error_message' in i_data_string:
 	sys.exit()
 
 #Unique message if there are no images
-if len(i_data_dict) < 1:
+if len(i_data_dict['data']) < 1:
 	print 'Found zero images nearby :('
 	sys.exit()
 
