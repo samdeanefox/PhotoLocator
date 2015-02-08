@@ -9,11 +9,11 @@ Run the script in the command line, providing an argument specifying a location 
 
 For example:
 
-	python PhotoLocator.py "123 Example Street, San Francisco CA"
+	$python PhotoLocator.py "123 Example Street, San Francisco CA"
 
 or:
 
-	python PhotoLocator.py "The White House"
+	$python PhotoLocator.py "The White House"
 
 
 ##Resources
