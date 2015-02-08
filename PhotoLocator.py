@@ -59,7 +59,7 @@ if len(i_data_dict['data']) < 1:
 i = 1
 print 'Found ' + str(len(i_data_dict['data'])) + ' recent images nearby!' + '\n\n'
 for entry in i_data_dict['data']:
-	print str(i) + ': '
+	print str(i) + ':'
 	print entry['images']['standard_resolution']['url']
 	print 'Latitude:', entry['location']['latitude']
 	print 'Longitude:', entry['location']['longitude']
