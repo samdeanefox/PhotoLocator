@@ -50,7 +50,18 @@ if 'error_message' in i_data_string:
 	print 'Instagram query failed, error message:', i_data_dict['meta']['error_message']
 	sys.exit()
 
-#Format message for console
+#Unique message if there are no images
+if len(i_data_dict) < 1:
+	print 'Found zero images nearby :('
+	sys.exit()
 
-#Print data
-print '\n\n\n\n', i_response.content
+#Print information to console
+i = 1
+print 'Found ' + str(len(i_data_dict['data'])) + ' recent images nearby!' + '\n\n'
+for entry in i_data_dict['data']:
+	print str(i) + ': '
+	print entry['images']['standard_resolution']['url']
+	print 'Latitude:', entry['location']['latitude']
+	print 'Longitude:', entry['location']['longitude']
+	print '\n\n\n'
+	i += 1
