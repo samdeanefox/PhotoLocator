@@ -2,15 +2,14 @@ import sys
 import requests
 import json
 
-
 #Some initial variables
 #Google
-g_querystring = 'https://maps.googleapis.com/maps/api/geocode/json?address='
+g_querystring = 'https://maps.googleapis.com/maps/api/geocode/json?address=' #incomplete
 g_api_key = 'AIzaSyBLD1wSgxXTBzab5wRhEHB1pCDjN1jMU0w'
 #Instagram
-i_querystring = 'https://api.instagram.com/v1/media/search?lat='
+i_querystring = 'https://api.instagram.com/v1/media/search?lat=' #incomplete
 i_client_id = 'c8d5084deb084eab96bc783ec7ab1147'
-i_access_token = 'ACCESS-TOKEN'
+i_access_token = '1697175721.c8d5084.47464f0e27ed49a084a8c3817f2c6c94'
 
 #Check for correct number of arguments
 if len(sys.argv) != 2:
@@ -26,7 +25,7 @@ g_querystring += '&key=' + g_api_key
 
 #Query Google
 g_response = requests.get(g_querystring) #json response
-g_data_dict = json.loads(g_response.content) #dictionary for referencing fields
+g_data_dict = json.loads(g_response.content) #dictionary to reference fields
 g_data_string = json.dumps(g_response.content) #string representation for easy detection of ZERO_RESULTS flag
 
 #Handle if no match
@@ -37,15 +36,21 @@ if 'ZERO_RESULTS' in g_data_string:
 #Extract lat and lng
 lat = str(g_data_dict['results'][0]['geometry']['location']['lat'])
 lng = str(g_data_dict['results'][0]['geometry']['location']['lng'])
-print 'lat value:', lat
-print 'lng value:', lng
 
 #Construct Instagram query string
 i_querystring += lat + '&lng=' + lng + '&access_token=' + i_access_token
-print i_querystring
 
 #Query Instagram
+i_response = requests.get(i_querystring) #json reponse
+i_data_dict = json.loads(i_response.content) #dictionary to reference fields
+i_data_string = json.dumps(i_response.content) #string representation for easy detection of error_message
+
+#Handle if something goes wrong
+if 'error_message' in i_data_string:
+	print 'Instagram query failed, error message:', i_data_dict['meta']['error_message']
+	sys.exit()
 
 #Format message for console
 
 #Print data
+print '\n\n\n\n', i_response.content
