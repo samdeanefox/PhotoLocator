@@ -24,20 +24,19 @@ g_querystring += '&key=' + g_api_key
 
 
 #Query geocode
-g_response = requests.get(g_querystring)
-g_data = json.dumps(g_response.content)
-g_data2 = json.loads(g_response.content)
+g_response = requests.get(g_querystring) #json response
+g_data_dict = json.loads(g_response.content) #dictionary for referencing fields
+g_data_string = json.dumps(g_response.content) #string for easy detection of ZERO_RESULTS flag
 
 #Handle if no match
-if 'ZERO_RESULTS' in g_data:
-	print 'Sorry, can\'t find that address'
+if 'ZERO_RESULTS' in g_data_string:
+	print 'Sorry, can\'t find that location'
 	sys.exit()
 
-
-#Parse out lat and lng
-
-print 'status code:', g_response.status_code
-print '\n\n\nheaders:', g_response.headers
-print '\n\n\ncontent:', g_response.content
+#Extract lat and lng
+lat = g_data_dict['results'][0]['geometry']['location']['lat']
+lng = g_data_dict['results'][0]['geometry']['location']['lng']
+print 'lat value:', lat
+print 'lng value:', lng
 
 
